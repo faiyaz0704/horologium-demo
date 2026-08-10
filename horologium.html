@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOROLOGIUM — Timeless Precision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --emerald: #1B4332;
+  --emerald-deep: #142e23;
+  --emerald-dark: #0e2218;
+  --gold: #C9A84C;
+  --gold-dim: rgba(201, 168, 76, 0.6);
+  --ivory: #F9F6F0;
+  --dark: #1C1C1C;
+  --dark-soft: #232323;
+  --white: #FFFFFF;
+  --font-display: 'Italiana', serif;
+  --font-body: 'Josefin Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--dark);
+  background: var(--dark);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+.skip-link {
+  position: absolute; top: -100%; left: 16px; z-index: 10000;
+  padding: 12px 24px; background: var(--gold); color: var(--dark);
+  font-weight: 400; font-size: 14px; text-decoration: none; letter-spacing: 0.1em;
+}
+.skip-link:focus { top: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+  .loader { display: none !important; }
+  body.loading { overflow: auto !important; }
+}
+
+/* ═══════════════════════════════════════
+   LOADER — Tourbillon Mechanism
+   ═══════════════════════════════════════ */
+body.loading { overflow: hidden; }
+
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--dark);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
+}
+.loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.loader-mechanism {
+  width: clamp(100px, 18vw, 140px);
+  height: clamp(100px, 18vw, 140px);
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: ldUp 1s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.loader-mechanism svg { width: 100%; height: 100%; }
+
+/* Cage: entire assembly rotates once per ~10s */
+.tb-cage { animation: tbCageRot 10s linear infinite; transform-origin: 70px 70px; }
+
+/* Escape wheel: ticking rotation */
+.tb-escape { animation: tbEscTick 0.5s steps(6, end) infinite; transform-origin: 70px 70px; }
+
+/* Balance wheel: oscillates back and forth like a real balance */
+.tb-balance { animation: tbBalOsc 0.8s cubic-bezier(0.4,0,0.6,1) infinite alternate; transform-origin: 70px 44px; }
+
+/* Hairspring: breathes with balance */
+.tb-hairspring { animation: tbSpring 0.8s ease-in-out infinite alternate; transform-origin: 70px 44px; }
+
+/* Third wheel: counter-rotates */
+.tb-third { animation: tbThird 3s linear infinite reverse; transform-origin: 70px 70px; }
+
+/* Jewel pulse */
+.tb-jewel-pulse { animation: tbJewel 2s ease-in-out infinite; }
+
+@keyframes tbCageRot { to { transform: rotate(360deg); } }
+@keyframes tbEscTick { to { transform: rotate(60deg); } }
+@keyframes tbBalOsc {
+  0%   { transform: rotate(-28deg); }
+  100% { transform: rotate(28deg); }
+}
+@keyframes tbSpring {
+  0%   { transform: scale(0.96) rotate(-8deg); }
+  100% { transform: scale(1.04) rotate(8deg); }
+}
+@keyframes tbThird { to { transform: rotate(-360deg); } }
+@keyframes tbJewel {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+.loader-wordmark {
+  font-family: var(--font-display); font-size: clamp(18px,2.4vw,26px);
+  color: var(--ivory); letter-spacing: 0.45em;
+  opacity: 0; transform: translateY(10px);
+  animation: ldUp 0.9s 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.loader-track {
+  width: 80px; height: 1px; background: rgba(249,246,240,0.07);
+  margin-top: 24px; position: relative; overflow: hidden;
+  opacity: 0; animation: ldUp 0.5s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.loader-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--gold); animation: ldProg 2.2s 0.8s cubic-bezier(0.4,0,0.2,1) forwards; }
+.loader-sub {
+  font-size: clamp(7px,0.8vw,9px); letter-spacing: 0.3em;
+  color: rgba(249,246,240,0.2); margin-top: 16px;
+  opacity: 0; animation: ldUp 0.5s 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+@keyframes ldUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes ldProg { to { width: 100%; } }
+
+/* ═══════════════════════════════════════
+   NAV — Floating
+   ═══════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: clamp(12px,1.8vw,22px);
+  left: clamp(12px,2.5vw,40px);
+  right: clamp(12px,2.5vw,40px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: clamp(12px,1.4vw,16px) clamp(20px,2.5vw,36px);
+  border: 1px solid rgba(249,246,240,0.04);
+  border-radius: 2px;
+  transition: background 0.6s, border-color 0.6s, backdrop-filter 0.6s, box-shadow 0.6s;
+}
+.nav.scrolled {
+  background: rgba(27,67,50,0.72);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border-color: rgba(201,168,76,0.08);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+}
+.nav-wordmark {
+  font-family: var(--font-display); font-size: clamp(13px,1.5vw,18px);
+  color: var(--ivory); text-decoration: none; letter-spacing: 0.35em;
+}
+.nav-links { display: flex; gap: clamp(18px,2.5vw,40px); list-style: none; }
+.nav-links a {
+  font-weight: 400; font-size: clamp(8px,0.8vw,10px);
+  color: rgba(249,246,240,0.6); text-decoration: none;
+  letter-spacing: 0.2em; position: relative; padding: 4px 0;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.nav-links a:hover { color: var(--ivory); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-toggle {
+  display: none; background: none; border: none; cursor: pointer;
+  width: 44px; height: 44px; position: relative; z-index: 1001;
+}
+.nav-toggle span {
+  display: block; width: 20px; height: 1.5px; background: var(--ivory);
+  position: absolute; left: 12px; transition: transform 0.35s, opacity 0.25s;
+}
+.nav-toggle span:nth-child(1) { top: 16px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav-toggle span:nth-child(3) { top: 26px; }
+.nav-toggle.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+.mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: rgba(20,46,35,0.97); backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); z-index: 999;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 36px; opacity: 0; transition: opacity 0.4s;
+}
+.mobile-menu.visible { display: flex; opacity: 1; }
+.mobile-menu a {
+  font-family: var(--font-display); font-size: 24px;
+  color: var(--ivory); text-decoration: none; letter-spacing: 0.15em;
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--gold); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+}
+
+/* ═══════════════════════════════════════
+   HERO — Carousel (refined sizing)
+   ═══════════════════════════════════════ */
+.hero {
+  position: relative; height: 100vh; min-height: 560px; overflow: hidden;
+}
+.hero-slides { position: absolute; inset: 0; }
+.hero-slide {
+  position: absolute; inset: 0; opacity: 0;
+  transition: opacity 2.4s cubic-bezier(0.4, 0, 0.1, 1);
+  will-change: opacity, transform;
+  transform: scale(1.015);
+  filter: brightness(0.7);
+}
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  filter: brightness(1);
+  transition: opacity 2.4s cubic-bezier(0.4, 0, 0.1, 1),
+              transform 2.4s cubic-bezier(0.4, 0, 0.1, 1),
+              filter 2.8s cubic-bezier(0.4, 0, 0.1, 1);
+}
+.hero-slide.leaving {
+  opacity: 0;
+  transform: scale(0.98);
+  filter: brightness(0.5);
+  transition: opacity 2.4s cubic-bezier(0.4, 0, 0.1, 1),
+              transform 3s cubic-bezier(0.4, 0, 0.1, 1),
+              filter 2s cubic-bezier(0.4, 0, 0.1, 1);
+}
+.hero-slide-bg {
+  position: absolute; inset: -20px;
+  background-size: cover; background-position: center;
+  animation: none;
+}
+/* Ken Burns — each slide gets its own slow drift */
+.hero-slide.active .hero-slide-bg {
+  animation: kenBurns 7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-slide:nth-child(1).active .hero-slide-bg {
+  animation-name: kb1;
+}
+.hero-slide:nth-child(2).active .hero-slide-bg {
+  animation-name: kb2;
+}
+@keyframes kb1 {
+  from { transform: scale(1.08) translate(0, 0); }
+  to   { transform: scale(1.0) translate(-8px, -4px); }
+}
+@keyframes kb2 {
+  from { transform: scale(1.06) translate(-6px, 4px); }
+  to   { transform: scale(1.0) translate(4px, -2px); }
+}
+
+/* Real hero images */
+.hero-slide:nth-child(1) .hero-slide-bg {
+  background-image: url('assets/images/hero-slide-1.jpg');
+  background-position: center 30%;
+}
+.hero-slide:nth-child(2) .hero-slide-bg {
+  background-image: url('assets/images/hero-slide-2.jpg');
+  background-position: center center;
+}
+
+/* Overlay */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(
+    110deg,
+    rgba(14,34,24,0.88) 0%,
+    rgba(14,34,24,0.55) 40%,
+    rgba(0,0,0,0.25) 100%
+  );
+}
+
+.hero-content {
+  position: relative; z-index: 3;
+  height: 100%; display: flex; flex-direction: column; justify-content: center;
+  padding: 0 clamp(28px,7vw,110px);
+  max-width: 620px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 400; color: var(--ivory);
+  line-height: 1.05; letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+.hero h1 span {
+  display: block; color: var(--gold);
+  font-size: 0.88em; margin-top: 2px;
+}
+
+.hero-sub {
+  font-size: clamp(12px, 1.1vw, 15px);
+  color: rgba(249,246,240,0.5);
+  max-width: 320px; margin-bottom: 36px;
+  letter-spacing: 0.04em; line-height: 1.7;
+}
+
+.cta-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-body); font-weight: 400;
+  font-size: clamp(9px,0.85vw,11px); letter-spacing: 0.22em;
+  color: var(--dark); background: var(--gold);
+  padding: 15px 36px; text-decoration: none;
+  transition: background 0.4s, color 0.4s, box-shadow 0.4s;
+  align-self: flex-start;
+}
+.cta-primary::after { content: '→'; transition: transform 0.3s; }
+.cta-primary:hover { background: var(--ivory); color: var(--emerald); box-shadow: 0 6px 28px rgba(201,168,76,0.2); }
+.cta-primary:hover::after { transform: translateX(4px); }
+
+/* Counter & indicators */
+.hero-counter {
+  position: absolute; z-index: 4;
+  bottom: clamp(24px,3.5vh,44px); left: clamp(28px,7vw,110px);
+  font-size: clamp(9px,0.8vw,10px); letter-spacing: 0.2em;
+  color: rgba(249,246,240,0.22);
+}
+.hero-counter .cur { color: var(--gold); font-weight: 400; }
+
+.hero-indicators {
+  position: absolute; z-index: 4;
+  bottom: clamp(24px,3.5vh,44px); right: clamp(24px,4vw,64px);
+  display: flex; gap: 8px; align-items: center;
+}
+.hero-ind {
+  width: 32px; height: 2px;
+  background: rgba(249,246,240,0.1);
+  border: none; cursor: pointer; padding: 0;
+  position: relative; overflow: hidden;
+}
+.hero-ind-fill {
+  position: absolute; top: 0; left: 0;
+  height: 100%; width: 0%; background: var(--gold);
+}
+.hero-ind.active .hero-ind-fill { animation: indF 6s linear forwards; }
+@keyframes indF { to { width: 100%; } }
+
+@media (max-width: 768px) {
+  .hero-content { padding: 0 24px; }
+  .hero-indicators { right: 24px; }
+  .hero-counter { left: 24px; }
+}
+
+/* ═══════════════════════════════════════
+   COLLECTION — Z Pattern, Dark Mood
+   ═══════════════════════════════════════ */
+.collection {
+  background: var(--dark);
+  padding: clamp(64px,10vh,130px) clamp(20px,4vw,64px);
+}
+
+.section-header { text-align: center; margin-bottom: clamp(48px,7vh,88px); }
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px,3.2vw,44px);
+  font-weight: 400; color: var(--ivory);
+  letter-spacing: 0.06em;
+}
+.section-header .hline { width: 40px; height: 1px; background: var(--gold); margin: 18px auto 0; }
+
+.z-layout {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; flex-direction: column;
+  gap: clamp(56px,8vh,110px);
+}
+
+.z-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px,3vw,52px);
+  align-items: start;
+}
+
+.z-pair:nth-child(odd) .z-card:nth-child(2) { margin-top: clamp(40px,6vw,100px); }
+.z-pair:nth-child(even) .z-card:nth-child(1) { margin-top: clamp(40px,6vw,100px); }
+
+.z-card { position: relative; cursor: pointer; }
+
+.z-img {
+  width: 100%; aspect-ratio: 3/4;
+  background: var(--dark-soft);
+  position: relative; overflow: hidden;
+  margin-bottom: clamp(14px,1.8vw,22px);
+  transition: box-shadow 0.6s;
+}
+.z-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.6s;
+  opacity: 0.92;
+}
+.z-card:hover .z-img img { transform: scale(1.04); opacity: 1; }
+.z-card:hover .z-img { box-shadow: 0 16px 48px rgba(0,0,0,0.35); }
+
+.z-accent {
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 2px; background: var(--gold);
+  transition: width 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.z-card:hover .z-accent { width: 100%; }
+
+.z-ref {
+  font-size: clamp(8px,0.7vw,9px);
+  color: rgba(249,246,240,0.25);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.z-name {
+  font-family: var(--font-display);
+  font-size: clamp(16px,1.7vw,26px);
+  color: var(--ivory); letter-spacing: 0.04em;
+  margin-bottom: 8px; transition: color 0.4s;
+}
+.z-card:hover .z-name { color: var(--gold); }
+.z-price {
+  font-weight: 400; font-size: clamp(11px,0.9vw,14px);
+  color: rgba(201,168,76,0.7); letter-spacing: 0.02em;
+}
+
+/* Mobile Z-pattern: keep 2 columns */
+@media (max-width: 768px) {
+  .z-pair { gap: clamp(10px,3vw,16px); }
+  .z-pair:nth-child(odd) .z-card:nth-child(2) { margin-top: clamp(32px,10vw,60px); }
+  .z-pair:nth-child(even) .z-card:nth-child(1) { margin-top: clamp(32px,10vw,60px); }
+}
+
+@media (max-width: 360px) {
+  .z-pair { gap: 8px; }
+}
+
+/* ═══════════════════════════════════════
+   SPOTLIGHT — Compact
+   ═══════════════════════════════════════ */
+.spotlight {
+  background: var(--emerald);
+  position: relative; overflow: hidden;
+}
+
+.spotlight-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  max-width: 1200px; margin: 0 auto;
+}
+
+.spotlight-vis {
+  position: relative;
+  background: linear-gradient(155deg, var(--emerald-deep), var(--emerald-dark));
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; min-height: 400px;
+  padding: clamp(40px,4vw,60px);
+}
+
+.spotlight-vis img {
+  max-width: 72%; max-height: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+}
+
+.spotlight-vis::before {
+  content: ''; position: absolute;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(201,168,76,0.04), transparent 65%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+
+.spotlight-body {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(36px,4.5vw,72px);
+}
+
+.spotlight-over {
+  font-size: clamp(8px,0.75vw,10px); font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.spotlight-body h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px,3.2vw,44px);
+  font-weight: 400; color: var(--ivory);
+  letter-spacing: 0.03em; line-height: 1.12;
+  margin-bottom: 20px;
+}
+.spotlight-body p {
+  font-size: clamp(12px,1vw,14px);
+  color: rgba(249,246,240,0.45);
+  max-width: 380px; line-height: 1.85;
+  margin-bottom: 32px;
+}
+.cta-outline {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-body); font-weight: 400;
+  font-size: clamp(9px,0.85vw,11px); letter-spacing: 0.22em;
+  color: var(--gold); background: transparent;
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 15px 36px; text-decoration: none;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+  align-self: flex-start;
+}
+.cta-outline::after { content: '→'; transition: transform 0.3s; }
+.cta-outline:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+.cta-outline:hover::after { transform: translateX(4px); }
+
+@media (max-width: 768px) {
+  .spotlight-inner { grid-template-columns: 1fr; }
+  .spotlight-vis { min-height: 280px; }
+}
+
+/* ═══════════════════════════════════════
+   BRAND STATEMENT — Ivory Shift
+   ═══════════════════════════════════════ */
+.statement {
+  background: var(--ivory);
+  padding: clamp(72px,12vh,160px) clamp(24px,8vw,100px);
+  text-align: center; position: relative;
+}
+.statement::before {
+  content: ''; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 240px; height: 240px;
+  border: 1px solid rgba(27,67,50,0.06);
+  border-radius: 50%; pointer-events: none;
+}
+.statement blockquote {
+  font-family: var(--font-display);
+  font-size: clamp(20px,3vw,40px);
+  font-weight: 400; color: var(--emerald);
+  line-height: 1.35; max-width: 720px;
+  margin: 0 auto; letter-spacing: 0.01em;
+}
+.statement blockquote em { font-style: normal; color: var(--gold); }
+
+/* ═══════════════════════════════════════
+   FOOTER — Refined & Elegant
+   ═══════════════════════════════════════ */
+.footer {
+  background: var(--dark);
+  border-top: 1px solid rgba(201,168,76,0.05);
+}
+
+.footer-top {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+  gap: clamp(32px,4vw,64px);
+  padding: clamp(40px,5vh,64px) clamp(24px,4vw,64px);
+  border-bottom: 1px solid rgba(249,246,240,0.04);
+}
+
+.footer-brand-col .footer-logo {
+  font-family: var(--font-display);
+  font-size: clamp(14px,1.4vw,18px);
+  color: var(--ivory); letter-spacing: 0.3em;
+  margin-bottom: 16px;
+}
+
+.footer-brand-col p {
+  font-size: clamp(11px,0.85vw,12px);
+  color: rgba(249,246,240,0.28);
+  line-height: 1.7; max-width: 260px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-body); font-weight: 400;
+  font-size: clamp(9px,0.75vw,10px);
+  color: rgba(201,168,76,0.6);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.footer-col a {
+  font-size: clamp(11px,0.85vw,12px);
+  color: rgba(249,246,240,0.35);
+  text-decoration: none; letter-spacing: 0.06em;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--gold); }
+
+/* Newsletter hint */
+.footer-newsletter {
+  margin-top: 20px;
+}
+.footer-newsletter p {
+  font-size: clamp(10px,0.8vw,11px);
+  color: rgba(249,246,240,0.22);
+  margin-bottom: 10px; letter-spacing: 0.04em;
+}
+.footer-email-row {
+  display: flex; gap: 0; max-width: 220px;
+}
+.footer-email-row input {
+  flex: 1; background: rgba(249,246,240,0.04);
+  border: 1px solid rgba(249,246,240,0.06);
+  border-right: none;
+  padding: 10px 12px;
+  font-family: var(--font-body); font-size: 11px; font-weight: 300;
+  color: var(--ivory); letter-spacing: 0.04em;
+  outline: none; transition: border-color 0.3s;
+}
+.footer-email-row input::placeholder { color: rgba(249,246,240,0.2); }
+.footer-email-row input:focus { border-color: rgba(201,168,76,0.3); }
+.footer-email-row button {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--gold); padding: 10px 14px;
+  font-size: 11px; cursor: pointer; letter-spacing: 0.1em;
+  transition: background 0.3s;
+}
+.footer-email-row button:hover { background: rgba(201,168,76,0.25); }
+
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: clamp(18px,2.5vh,28px) clamp(24px,4vw,64px);
+}
+
+.footer-est {
+  font-family: var(--font-display);
+  font-size: clamp(10px,0.85vw,12px);
+  color: rgba(249,246,240,0.18); letter-spacing: 0.2em;
+}
+
+.footer-copy {
+  font-size: clamp(8px,0.65vw,9px);
+  color: rgba(249,246,240,0.12); letter-spacing: 0.08em;
+}
+
+@media (max-width: 768px) {
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════ */
+.rv {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.08s; }
+.rd2 { transition-delay: 0.16s; }
+.rd3 { transition-delay: 0.24s; }
+</style>
+</head>
+<body class="loading">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- LOADER -->
+<div class="loader" aria-label="Loading">
+  <div class="loader-mechanism" aria-hidden="true">
+    <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="goldG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#A8893A" stop-opacity="0.7"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Outer fixed ring with minute markers -->
+      <circle cx="70" cy="70" r="66" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="0.5"/>
+      <circle cx="70" cy="70" r="64" fill="none" stroke="rgba(201,168,76,0.04)" stroke-width="8"/>
+      <g>
+        <!-- 60 tick marks around the bezel -->
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(0 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(30 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(60 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="11" stroke="rgba(201,168,76,0.3)" stroke-width="0.6" transform="rotate(90 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(120 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(150 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="11" stroke="rgba(201,168,76,0.3)" stroke-width="0.6" transform="rotate(180 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(210 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(240 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="11" stroke="rgba(201,168,76,0.3)" stroke-width="0.6" transform="rotate(270 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(300 70 70)"/>
+        <line x1="70" y1="4" x2="70" y2="9" stroke="rgba(201,168,76,0.15)" stroke-width="0.4" transform="rotate(330 70 70)"/>
+      </g>
+
+      <!-- === ROTATING CAGE (entire assembly) === -->
+      <g class="tb-cage">
+
+        <!-- Cage frame: 3 bridge arms -->
+        <line x1="70" y1="14" x2="70" y2="126" stroke="url(#goldG)" stroke-width="1.2" opacity="0.35"/>
+        <line x1="21.5" y1="98" x2="118.5" y2="42" stroke="url(#goldG)" stroke-width="1.2" opacity="0.35"/>
+        <line x1="21.5" y1="42" x2="118.5" y2="98" stroke="url(#goldG)" stroke-width="1.2" opacity="0.35"/>
+
+        <!-- Cage outer ring -->
+        <circle cx="70" cy="70" r="54" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="0.8"/>
+        <circle cx="70" cy="70" r="52" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="0.4"/>
+
+        <!-- Bridge arm endcaps (decorative screws) -->
+        <circle cx="70" cy="16" r="2.5" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="0.6"/>
+        <circle cx="70" cy="124" r="2.5" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="0.6"/>
+        <circle cx="23" cy="97" r="2.5" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="0.6"/>
+        <circle cx="117" cy="43" r="2.5" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="0.6"/>
+        <circle cx="23" cy="43" r="2.5" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="0.6"/>
+        <circle cx="117" cy="97" r="2.5" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="0.6"/>
+
+        <!-- === ESCAPE WHEEL (ticking gear) === -->
+        <g class="tb-escape">
+          <!-- Gear teeth — 12 pointed teeth -->
+          <polygon points="70,46 72,50 68,50" fill="rgba(201,168,76,0.5)"/>
+          <polygon points="70,94 72,90 68,90" fill="rgba(201,168,76,0.5)"/>
+          <polygon points="46,70 50,72 50,68" fill="rgba(201,168,76,0.5)"/>
+          <polygon points="94,70 90,72 90,68" fill="rgba(201,168,76,0.5)"/>
+          <polygon points="52.8,53 56,55.5 54,57" fill="rgba(201,168,76,0.4)"/>
+          <polygon points="87.2,87 84,84.5 86,83" fill="rgba(201,168,76,0.4)"/>
+          <polygon points="87.2,53 84,55.5 86,57" fill="rgba(201,168,76,0.4)"/>
+          <polygon points="52.8,87 56,84.5 54,83" fill="rgba(201,168,76,0.4)"/>
+          <polygon points="57,49 59.5,52.5 57.5,54" fill="rgba(201,168,76,0.35)"/>
+          <polygon points="83,91 80.5,87.5 82.5,86" fill="rgba(201,168,76,0.35)"/>
+          <polygon points="91,57 87.5,59.5 86,57.5" fill="rgba(201,168,76,0.35)"/>
+          <polygon points="49,83 52.5,80.5 54,82.5" fill="rgba(201,168,76,0.35)"/>
+
+          <!-- Escape wheel body -->
+          <circle cx="70" cy="70" r="22" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="0.6"/>
+          <circle cx="70" cy="70" r="18" fill="none" stroke="rgba(201,168,76,0.1)" stroke-width="0.4"/>
+
+          <!-- Spokes -->
+          <line x1="70" y1="52" x2="70" y2="88" stroke="rgba(201,168,76,0.12)" stroke-width="0.4"/>
+          <line x1="52" y1="70" x2="88" y2="70" stroke="rgba(201,168,76,0.12)" stroke-width="0.4"/>
+          <line x1="57" y1="57" x2="83" y2="83" stroke="rgba(201,168,76,0.08)" stroke-width="0.3"/>
+          <line x1="83" y1="57" x2="57" y2="83" stroke="rgba(201,168,76,0.08)" stroke-width="0.3"/>
+        </g>
+
+        <!-- === BALANCE WHEEL (oscillates) === -->
+        <g class="tb-balance">
+          <!-- Balance rim -->
+          <circle cx="70" cy="44" r="12" fill="none" stroke="rgba(201,168,76,0.45)" stroke-width="0.8"/>
+
+          <!-- Balance arm (crossbar) -->
+          <line x1="58" y1="44" x2="82" y2="44" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+
+          <!-- Counterweights -->
+          <circle cx="58" cy="44" r="1.8" fill="rgba(201,168,76,0.6)"/>
+          <circle cx="82" cy="44" r="1.8" fill="rgba(201,168,76,0.6)"/>
+
+          <!-- Impulse pin -->
+          <circle cx="70" cy="44" r="1" fill="rgba(201,168,76,0.8)"/>
+        </g>
+
+        <!-- === HAIRSPRING (breathes with balance) === -->
+        <g class="tb-hairspring">
+          <circle cx="70" cy="44" r="5" fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="0.3"/>
+          <circle cx="70" cy="44" r="7" fill="none" stroke="rgba(201,168,76,0.12)" stroke-width="0.25"/>
+          <circle cx="70" cy="44" r="9" fill="none" stroke="rgba(201,168,76,0.08)" stroke-width="0.2"/>
+        </g>
+
+        <!-- === THIRD WHEEL (counter-rotates) === -->
+        <g class="tb-third">
+          <circle cx="70" cy="70" r="8" fill="none" stroke="rgba(201,168,76,0.15)" stroke-width="0.5"/>
+          <!-- Tiny gear teeth on third wheel -->
+          <line x1="70" y1="62" x2="70" y2="63.5" stroke="rgba(201,168,76,0.25)" stroke-width="0.5"/>
+          <line x1="70" y1="78" x2="70" y2="76.5" stroke="rgba(201,168,76,0.25)" stroke-width="0.5"/>
+          <line x1="62" y1="70" x2="63.5" y2="70" stroke="rgba(201,168,76,0.25)" stroke-width="0.5"/>
+          <line x1="78" y1="70" x2="76.5" y2="70" stroke="rgba(201,168,76,0.25)" stroke-width="0.5"/>
+          <line x1="64.3" y1="64.3" x2="65.4" y2="65.4" stroke="rgba(201,168,76,0.2)" stroke-width="0.4"/>
+          <line x1="75.7" y1="75.7" x2="74.6" y2="74.6" stroke="rgba(201,168,76,0.2)" stroke-width="0.4"/>
+          <line x1="75.7" y1="64.3" x2="74.6" y2="65.4" stroke="rgba(201,168,76,0.2)" stroke-width="0.4"/>
+          <line x1="64.3" y1="75.7" x2="65.4" y2="74.6" stroke="rgba(201,168,76,0.2)" stroke-width="0.4"/>
+        </g>
+
+        <!-- Center jewel bearing -->
+        <circle cx="70" cy="70" r="2" fill="rgba(201,168,76,0.7)"/>
+        <circle cx="70" cy="70" r="2.8" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="0.4"/>
+
+        <!-- Balance jewel bearing -->
+        <circle class="tb-jewel-pulse" cx="70" cy="44" r="1.5" fill="rgba(201,168,76,0.6)"/>
+
+      </g><!-- /cage -->
+
+      <!-- Fixed center post (doesn't rotate) -->
+      <circle cx="70" cy="70" r="1" fill="rgba(201,168,76,0.9)" />
+      <circle cx="70" cy="70" r="0.5" fill="var(--dark)"/>
+    </svg>
+  </div>
+  <div class="loader-wordmark">HOROLOGIUM</div>
+  <div class="loader-track"><div class="loader-fill"></div></div>
+  <div class="loader-sub">TIMELESS PRECISION</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="horologium.html" class="nav-wordmark">HOROLOGIUM</a>
+  <ul class="nav-links">
+    <li><a href="#collection">COLLECTIONS</a></li>
+    <li><a href="#heritage">HERITAGE</a></li>
+    <li><a href="contact.html">CONSULT WITH EXPERT</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" role="dialog" aria-label="Navigation menu">
+  <a href="#collection">COLLECTIONS</a>
+  <a href="#heritage">HERITAGE</a>
+  <a href="contact.html">CONSULT WITH EXPERT</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="main-content">
+  <div class="hero-slides">
+    <div class="hero-slide active"><div class="hero-slide-bg"></div></div>
+    <div class="hero-slide"><div class="hero-slide-bg"></div></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Timeless<span>Precision</span></h1>
+    <p class="hero-sub">Where mechanical mastery meets quiet refinement</p>
+    <a href="#collection" class="cta-primary">EXPLORE COLLECTIONS</a>
+  </div>
+  <div class="hero-counter"><span class="cur">01</span> / 02</div>
+  <div class="hero-indicators">
+    <button class="hero-ind active" data-slide="0" aria-label="Slide 1"><div class="hero-ind-fill"></div></button>
+    <button class="hero-ind" data-slide="1" aria-label="Slide 2"><div class="hero-ind-fill"></div></button>
+  </div>
+</section>
+
+<!-- COLLECTION — Z PATTERN -->
+<section class="collection" id="collection">
+  <div class="section-header rv">
+    <h2>The Collection</h2>
+    <div class="hline"></div>
+  </div>
+  <div class="z-layout">
+    <div class="z-pair">
+      <div class="z-card rv">
+        <div class="z-img">
+          <img src="assets/images/watch-royal-oak.jpg" alt="Meridian Perpetual" loading="lazy">
+          <div class="z-accent"></div>
+        </div>
+        <div class="z-ref">Ref. HP-4010</div>
+        <div class="z-name">Meridian Perpetual</div>
+        <div class="z-price">৳285,000</div>
+      </div>
+      <div class="z-card rv rd2">
+        <div class="z-img">
+          <img src="assets/images/watch-chronographe.jpg" alt="Solstice Chronograph" loading="lazy">
+          <div class="z-accent"></div>
+        </div>
+        <div class="z-ref">Ref. HS-2200</div>
+        <div class="z-name">Solstice Chronograph</div>
+        <div class="z-price">৳340,000</div>
+      </div>
+    </div>
+    <div class="z-pair">
+      <div class="z-card rv">
+        <div class="z-img">
+          <img src="assets/images/watch-tourbillon.jpg" alt="Equinox Tourbillon" loading="lazy">
+          <div class="z-accent"></div>
+        </div>
+        <div class="z-ref">Ref. HE-7001</div>
+        <div class="z-name">Equinox Tourbillon</div>
+        <div class="z-price">৳520,000</div>
+      </div>
+      <div class="z-card rv rd2">
+        <div class="z-img">
+          <img src="assets/images/watch-aurora.jpg" alt="Zenith Date" loading="lazy">
+          <div class="z-accent"></div>
+        </div>
+        <div class="z-ref">Ref. HZ-1100</div>
+        <div class="z-name">Zenith Date</div>
+        <div class="z-price">৳195,000</div>
+      </div>
+    </div>
+    <div class="z-pair">
+      <div class="z-card rv">
+        <div class="z-img">
+          <img src="assets/images/watch-vetriano.jpg" alt="Celestial Moonphase" loading="lazy">
+          <div class="z-accent"></div>
+        </div>
+        <div class="z-ref">Ref. HC-5500</div>
+        <div class="z-name">Celestial Moonphase</div>
+        <div class="z-price">৳410,000</div>
+      </div>
+      <div class="z-card rv rd2">
+        <div class="z-img">
+          <img src="assets/images/watch-royal-oak.jpg" alt="Vernal Minute Repeater" loading="lazy">
+          <div class="z-accent"></div>
+        </div>
+        <div class="z-ref">Ref. HV-9000</div>
+        <div class="z-name">Vernal Minute Repeater</div>
+        <div class="z-price">৳780,000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT -->
+<section class="spotlight" id="heritage">
+  <div class="spotlight-inner">
+    <div class="spotlight-vis">
+      <img src="assets/images/watch-tourbillon.jpg" alt="Equinox Tourbillon" loading="lazy">
+    </div>
+    <div class="spotlight-body">
+      <div class="spotlight-over rv">Master Collection</div>
+      <h2 class="rv rd1">The Equinox<br>Tourbillon</h2>
+      <p class="rv rd2">Three years in development. 312 hand-finished components. A flying tourbillon visible through the sapphire caseback — engineered for those who understand what they're looking at.</p>
+      <a href="product.html" class="cta-outline rv rd3">DISCOVER THE EQUINOX</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <blockquote class="rv">
+    We do not make watches for everyone. We make watches for those who <em>measure time by what they build with it.</em>
+  </blockquote>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand-col">
+      <div class="footer-logo">HOROLOGIUM</div>
+      <p>Crafted for those who understand that true precision is measured not in seconds, but in the pursuit of excellence.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#collection">Collections</a></li>
+        <li><a href="#heritage">Heritage</a></li>
+        <li><a href="contact.html">Consult with Expert</a></li>
+        <li><a href="contact.html">Book an Appointment</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#">Care & Service</a></li>
+        
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="terms.html">Terms &amp; Privacy</a></li>
+        <li><a href="track-order.html">Track My Order</a></li>
+      </ul>
+      <div class="footer-newsletter">
+        <p>Receive updates from the atelier</p>
+        <div class="footer-email-row">
+          <input type="email" placeholder="Email address" aria-label="Email address">
+          <button type="button" aria-label="Subscribe">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-est">Est. 2024 · Dhaka</div>
+    <div class="footer-copy">© 2024 Horologium. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* LOADER */
+(function(){
+  const l=document.querySelector('.loader');
+  function d(){l.classList.add('done');document.body.classList.remove('loading');}
+  const m=new Promise(r=>setTimeout(r,3200));
+  const f=document.fonts?document.fonts.ready:Promise.resolve();
+  Promise.all([m,f]).then(d);
+  setTimeout(d,5500);
+})();
+
+/* NAV */
+const nav=document.querySelector('.nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);},{passive:true});
+
+/* MOBILE */
+const tog=document.querySelector('.nav-toggle'),mm=document.querySelector('.mobile-menu');
+tog.addEventListener('click',()=>{
+  const o=tog.classList.toggle('open');
+  tog.setAttribute('aria-expanded',o);
+  if(o){mm.style.display='flex';requestAnimationFrame(()=>mm.classList.add('visible'));document.body.style.overflow='hidden';}
+  else{mm.classList.remove('visible');setTimeout(()=>{mm.style.display='none';},400);document.body.style.overflow='';}
+});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  tog.classList.remove('open');tog.setAttribute('aria-expanded',false);
+  mm.classList.remove('visible');setTimeout(()=>{mm.style.display='none';},400);document.body.style.overflow='';
+}));
+
+/* HERO CAROUSEL */
+(function(){
+  const sl=document.querySelectorAll('.hero-slide'),
+        ind=document.querySelectorAll('.hero-ind'),
+        ctr=document.querySelector('.hero-counter .cur');
+  let c=0,transitioning=false;
+  const N=sl.length,D=7000;let t;
+
+  function go(i){
+    if(transitioning||i===c) return;
+    transitioning=true;
+    const prev=c;
+
+    // Exit: old slide gets 'leaving', loses 'active'
+    sl[prev].classList.remove('active');
+    sl[prev].classList.add('leaving');
+    ind[prev].classList.remove('active');
+    const of=ind[prev].querySelector('.hero-ind-fill');
+    of.style.animation='none';void of.offsetHeight;of.style.animation='';
+
+    // Enter: new slide gets 'active'
+    c=i;
+    sl[c].classList.add('active');
+    ind[c].classList.add('active');
+    const nf=ind[c].querySelector('.hero-ind-fill');
+    nf.style.animation='none';void nf.offsetHeight;
+    nf.style.animation='indF '+(D/1000)+'s linear forwards';
+    ctr.textContent=String(c+1).padStart(2,'0');
+
+    // Clean up leaving class after transition
+    setTimeout(()=>{
+      sl[prev].classList.remove('leaving');
+      transitioning=false;
+    },2800);
+  }
+
+  function st(){clearInterval(t);t=setInterval(()=>go((c+1)%N),D);}
+  ind.forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.slide;if(i!==c){go(i);st();}}));
+  ind[0].querySelector('.hero-ind-fill').style.animation='indF '+(D/1000)+'s linear forwards';
+  st();
+})();
+
+/* COLLECTION CARDS → PRODUCT PAGE */
+(function(){
+  document.querySelectorAll('.z-card').forEach(card=>{
+    card.style.cursor='pointer';
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','link');
+    const name=card.querySelector('.z-name');
+    if(name) card.setAttribute('aria-label','View '+name.textContent);
+    card.addEventListener('click',()=>{window.location.href='product.html';});
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.location.href='product.html';}});
+  });
+})();
+
+/* REVEAL */
+(function(){
+  const els=document.querySelectorAll('.rv');
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){els.forEach(e=>e.classList.add('vis'));return;}
+  const o=new IntersectionObserver(ents=>{ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -20px 0px'});
+  els.forEach(e=>o.observe(e));
+})();
+</script>
+</body>
+</html>
