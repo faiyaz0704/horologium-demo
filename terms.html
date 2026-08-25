@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions — HOROLOGIUM</title>
+<meta name="description" content="Horologium terms and conditions — policies on orders, shipping, returns, warranty, and privacy for our luxury timepiece collection.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   1. CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════ */
+:root {
+  --emerald: #1B4332;
+  --emerald-deep: #142e23;
+  --emerald-dark: #0e2218;
+  --gold: #C9A84C;
+  --gold-dim: rgba(201, 168, 76, 0.6);
+  --ivory: #F9F6F0;
+  --dark: #1C1C1C;
+  --dark-soft: #232323;
+  --white: #FFFFFF;
+  --font-display: 'Italiana', serif;
+  --font-body: 'Josefin Sans', sans-serif;
+  --nav-height: 60px;
+}
+
+/* ═══════════════════════════════════════
+   2. RESET & BASE
+   ═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--dark);
+  background: var(--dark);
+  overflow-x: hidden;
+  line-height: 1.7;
+  font-size: clamp(14px, 1vw, 16px);
+}
+
+img { display: block; max-width: 100%; height: auto; }
+ul, ol { list-style: none; }
+
+/* ═══════════════════════════════════════
+   3. TYPOGRAPHY
+   ═══════════════════════════════════════ */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════
+   4. ACCESSIBILITY BASE
+   ═══════════════════════════════════════ */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--dark);
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Focus states */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Active states */
+.nav-links a:active { color: var(--gold); }
+.footer-col a:active { color: var(--gold); }
+.footer-email-row button:active { background: rgba(201,168,76,0.35); }
+
+/* ═══════════════════════════════════════
+   5. NAVIGATION
+   ═══════════════════════════════════════ */
+.site-header {
+  position: fixed;
+  top: clamp(12px, 1.8vw, 22px);
+  left: clamp(12px, 2.5vw, 40px);
+  right: clamp(12px, 2.5vw, 40px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(12px, 1.4vw, 16px) clamp(20px, 2.5vw, 36px);
+  border: 1px solid rgba(249, 246, 240, 0.04);
+  border-radius: 2px;
+  transition: background 0.6s, border-color 0.6s, box-shadow 0.6s;
+  will-change: backdrop-filter;
+}
+
+.site-header.scrolled {
+  background: rgba(27, 67, 50, 0.72);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  border-color: rgba(201, 168, 76, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+}
+
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1.5vw, 18px);
+  color: var(--ivory);
+  text-decoration: none;
+  letter-spacing: 0.35em;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(18px, 2.5vw, 40px);
+}
+
+.nav-links a {
+  font-weight: 400;
+  font-size: clamp(8px, 0.8vw, 10px);
+  color: rgba(249, 246, 240, 0.6);
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-links a:hover { color: var(--ivory); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Hamburger toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  position: relative;
+  z-index: 1001;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ivory);
+  position: absolute;
+  left: 12px;
+  transition: transform 0.35s, opacity 0.25s;
+}
+
+.nav-toggle span:nth-child(1) { top: 16px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav-toggle span:nth-child(3) { top: 26px; }
+
+.nav-toggle.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+/* Mobile menu overlay */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 46, 35, 0.97);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.mobile-menu.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--ivory);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  transition: color 0.3s;
+  padding: 8px 16px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu a:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════
+   6. FOOTER
+   ═══════════════════════════════════════ */
+.site-footer {
+  background: var(--dark);
+  border-top: 1px solid rgba(201, 168, 76, 0.05);
+}
+
+.footer-top {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: clamp(32px, 4vw, 64px);
+  padding: clamp(40px, 5vh, 64px) clamp(24px, 4vw, 64px);
+  border-bottom: 1px solid rgba(249, 246, 240, 0.04);
+}
+
+.footer-brand-col .footer-logo {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: var(--ivory);
+  letter-spacing: 0.3em;
+  margin-bottom: 16px;
+}
+
+.footer-brand-col p {
+  font-size: clamp(11px, 0.85vw, 12px);
+  color: rgba(249, 246, 240, 0.28);
+  line-height: 1.7;
+  max-width: 260px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(9px, 0.75vw, 10px);
+  color: rgba(201, 168, 76, 0.6);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col a {
+  font-size: clamp(11px, 0.85vw, 12px);
+  color: rgba(249, 246, 240, 0.35);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--gold); }
+
+.footer-newsletter { margin-top: 20px; }
+.footer-newsletter p {
+  font-size: clamp(10px, 0.8vw, 11px);
+  color: rgba(249, 246, 240, 0.22);
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+
+.footer-email-row {
+  display: flex;
+  max-width: 220px;
+}
+
+.footer-email-row input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(249, 246, 240, 0.04);
+  border: 1px solid rgba(249, 246, 240, 0.06);
+  border-right: none;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--ivory);
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.footer-email-row input::placeholder { color: rgba(249, 246, 240, 0.2); }
+.footer-email-row input:focus-visible {
+  border-color: rgba(201, 168, 76, 0.3);
+  outline: none;
+}
+
+.footer-email-row button {
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  color: var(--gold);
+  padding: 10px 14px;
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: background 0.3s;
+  min-width: 44px;
+  min-height: 44px;
+}
+.footer-email-row button:hover { background: rgba(201, 168, 76, 0.25); }
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(18px, 2.5vh, 28px) clamp(24px, 4vw, 64px);
+}
+
+.footer-est {
+  font-family: var(--font-display);
+  font-size: clamp(10px, 0.85vw, 12px);
+  color: rgba(249, 246, 240, 0.18);
+  letter-spacing: 0.2em;
+}
+
+.footer-copy {
+  font-size: clamp(8px, 0.65vw, 9px);
+  color: rgba(249, 246, 240, 0.12);
+  letter-spacing: 0.08em;
+}
+
+/* ═══════════════════════════════════════
+   7. SCROLL REVEAL
+   ═══════════════════════════════════════ */
+.rv {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.08s; }
+.rd2 { transition-delay: 0.16s; }
+.rd3 { transition-delay: 0.24s; }
+
+/* ═══════════════════════════════════════
+   8. TERMS — Page Header
+   ═══════════════════════════════════════ */
+.terms-hero {
+  background: var(--emerald-dark);
+  padding: clamp(130px, 16vh, 180px) clamp(24px, 7vw, 110px) clamp(48px, 6vh, 72px);
+  position: relative;
+  overflow: hidden;
+}
+
+.terms-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 30% 40%, rgba(201, 168, 76, 0.03), transparent 60%);
+  pointer-events: none;
+}
+
+.terms-hero-inner {
+  max-width: 700px;
+  position: relative;
+}
+
+.terms-hero-eyebrow {
+  font-weight: 400;
+  font-size: clamp(8px, 0.75vw, 10px);
+  color: var(--gold-dim);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: clamp(16px, 2vh, 24px);
+}
+
+.terms-hero h1 {
+  font-size: clamp(32px, 4.5vw, 64px);
+  color: var(--ivory);
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  margin-bottom: clamp(12px, 1.5vh, 18px);
+}
+
+.terms-hero-sub {
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: rgba(249, 246, 240, 0.4);
+  letter-spacing: 0.08em;
+  font-weight: 300;
+}
+
+.terms-hero-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin-top: clamp(28px, 3.5vh, 40px);
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   9. TERMS — Sidebar + Content Layout
+   ═══════════════════════════════════════ */
+.terms-body {
+  background: var(--dark);
+  padding: clamp(48px, 7vh, 80px) clamp(24px, 4vw, 64px);
+}
+
+.terms-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(32px, 4vw, 72px);
+  align-items: start;
+}
+
+/* ── TOC Sidebar ── */
+.terms-toc {
+  position: sticky;
+  top: clamp(80px, 10vh, 110px);
+}
+
+.terms-toc-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(8px, 0.7vw, 9px);
+  color: var(--gold-dim);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: clamp(18px, 2vh, 28px);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.terms-toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.terms-toc-link {
+  display: block;
+  font-size: clamp(11px, 0.85vw, 13px);
+  color: rgba(249, 246, 240, 0.35);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  padding: 9px 0 9px 14px;
+  border-left: 1px solid rgba(249, 246, 240, 0.06);
+  transition: color 0.3s, border-color 0.3s;
+  line-height: 1.4;
+}
+
+.terms-toc-link:hover {
+  color: var(--ivory);
+  border-left-color: rgba(201, 168, 76, 0.3);
+}
+
+.terms-toc-link:active {
+  color: var(--gold);
+}
+
+.terms-toc-link.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+}
+
+/* ── Content Area ── */
+.terms-content {
+  min-width: 0;
+}
+
+.terms-section {
+  padding-bottom: clamp(40px, 5vh, 64px);
+  margin-bottom: clamp(40px, 5vh, 64px);
+  border-bottom: 1px solid rgba(249, 246, 240, 0.04);
+}
+
+.terms-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.terms-section-number {
+  font-weight: 400;
+  font-size: clamp(8px, 0.7vw, 9px);
+  color: rgba(201, 168, 76, 0.45);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: clamp(10px, 1.2vh, 14px);
+}
+
+.terms-section h2 {
+  font-size: clamp(22px, 2.4vw, 34px);
+  color: var(--ivory);
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  margin-bottom: clamp(20px, 2.5vh, 32px);
+}
+
+/* Ampersand in display font looks ornate — use body font */
+.amp {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.7em;
+  opacity: 0.55;
+}
+
+.terms-section h3 {
+  font-size: clamp(16px, 1.4vw, 20px);
+  color: var(--ivory);
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  margin-top: clamp(28px, 3vh, 40px);
+  margin-bottom: clamp(12px, 1.5vh, 18px);
+}
+
+.terms-section p {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: rgba(249, 246, 240, 0.5);
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  margin-bottom: clamp(14px, 1.8vh, 20px);
+}
+
+.terms-section p:last-child {
+  margin-bottom: 0;
+}
+
+.terms-section ul {
+  margin-bottom: clamp(14px, 1.8vh, 20px);
+  padding-left: 0;
+}
+
+.terms-section li {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: rgba(249, 246, 240, 0.5);
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+
+.terms-section li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 6px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+}
+
+.terms-section strong {
+  font-weight: 400;
+  color: rgba(249, 246, 240, 0.7);
+}
+
+.terms-section a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.terms-section a:hover {
+  color: var(--ivory);
+  border-bottom-color: var(--ivory);
+}
+
+/* ── Last Updated ── */
+.terms-updated {
+  margin-top: clamp(48px, 6vh, 72px);
+  padding-top: clamp(24px, 3vh, 36px);
+  border-top: 1px solid rgba(249, 246, 240, 0.04);
+  font-size: clamp(10px, 0.8vw, 12px);
+  color: rgba(249, 246, 240, 0.2);
+  letter-spacing: 0.1em;
+}
+
+/* ═══════════════════════════════════════
+   10. RESPONSIVE — Tablet
+   ═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+
+  .terms-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .terms-toc {
+    position: relative;
+    top: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: clamp(32px, 4vh, 48px);
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(249, 246, 240, 0.04);
+  }
+
+  .terms-toc-label {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .terms-toc-list {
+    flex-direction: row;
+    gap: 4px;
+    width: max-content;
+  }
+
+  .terms-toc-link {
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-left: none;
+    border-bottom: 1px solid rgba(249, 246, 240, 0.06);
+    font-size: clamp(11px, 2.8vw, 13px);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .terms-toc-link:hover {
+    border-left-color: transparent;
+    border-bottom-color: rgba(201, 168, 76, 0.3);
+  }
+
+  .terms-toc-link.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--gold);
+  }
+
+  .terms-hero { padding-left: 20px; padding-right: 20px; }
+
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+}
+
+/* ═══════════════════════════════════════
+   11. RESPONSIVE — Small Mobile
+   ═══════════════════════════════════════ */
+@media (max-width: 400px) {
+  .terms-body { padding-left: 16px; padding-right: 16px; }
+}
+
+/* ═══════════════════════════════════════
+   12. ACCESSIBILITY — Reduced Motion
+   ═══════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .rv { opacity: 1; transform: none; }
+}
+
+/* ═══════════════════════════════════════
+   13. PRINT
+   ═══════════════════════════════════════ */
+@media print {
+  .mobile-menu, .site-header, .terms-toc { display: none !important; }
+  body { background: white; color: black; }
+  .terms-hero { background: white; }
+  .terms-hero h1, .terms-section h2, .terms-section h3 { color: black; }
+  .terms-hero-sub, .terms-section p, .terms-section li { color: #333; }
+  .terms-body { background: white; }
+  .terms-layout { grid-template-columns: 1fr; }
+  .terms-section { border-bottom-color: #ddd; }
+}
+</style>
+</head>
+<body>
+
+<!-- SKIP LINK -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- HEADER / NAVIGATION -->
+<header class="site-header" role="banner">
+  <a href="horologium.html" class="nav-wordmark" aria-label="Horologium — Home">HOROLOGIUM</a>
+  <nav aria-label="Main navigation">
+    <ul class="nav-links">
+      <li><a href="shop.html">COLLECTIONS</a></li>
+      <li><a href="about.html">ABOUT US</a></li>
+      <li><a href="contact.html">CONSULT WITH EXPERT</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+  <a href="shop.html">COLLECTIONS</a>
+  <a href="about.html">ABOUT US</a>
+  <a href="contact.html">CONSULT WITH EXPERT</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="main-content">
+
+  <!-- PAGE HEADER -->
+  <section class="terms-hero" aria-label="Terms and Conditions">
+    <div class="terms-hero-inner">
+      <p class="terms-hero-eyebrow rv">Legal</p>
+      <h1 class="rv rd1">Terms <span class="amp">&amp;</span> Conditions</h1>
+      <p class="terms-hero-sub rv rd2">Please review our policies before placing an order</p>
+      <div class="terms-hero-line rv rd3" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- TERMS BODY -->
+  <section class="terms-body" aria-label="Terms content">
+    <div class="terms-layout">
+
+      <!-- SIDEBAR TOC -->
+      <aside class="terms-toc rv" aria-label="Table of contents">
+        <p class="terms-toc-label">Contents</p>
+        <nav>
+          <div class="terms-toc-list">
+            <a href="#general" class="terms-toc-link active">General Overview</a>
+            <a href="#products" class="terms-toc-link">Product Information</a>
+            <a href="#pricing" class="terms-toc-link">Pricing &amp; Payment</a>
+            <a href="#shipping" class="terms-toc-link">Shipping &amp; Delivery</a>
+            <a href="#returns" class="terms-toc-link">Returns &amp; Refunds</a>
+            <a href="#warranty" class="terms-toc-link">Warranty Policy</a>
+            <a href="#privacy" class="terms-toc-link">Privacy &amp; Data</a>
+            <a href="#contact" class="terms-toc-link">Contact</a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- CONTENT -->
+      <div class="terms-content">
+
+        <!-- 1. General Overview -->
+        <article id="general" class="terms-section rv">
+          <p class="terms-section-number">Section 01</p>
+          <h2>General Overview</h2>
+          <p>Welcome to Horologium. By accessing our website, placing an order, or engaging with any of our services, you agree to be bound by the terms and conditions set out on this page. These terms govern your relationship with Horologium and apply to all transactions conducted through our platform.</p>
+          <p>Horologium is a curated luxury watch retailer based in Dhaka, Bangladesh. We specialise in sourcing and presenting timepieces of mechanical distinction — each selected for its craftsmanship, provenance, and enduring value. Our operation is registered under the laws of Bangladesh and all transactions are subject to local jurisdiction.</p>
+          <p>We reserve the right to update these terms at any time. Changes take effect immediately upon publication. Continued use of our website or services following any modification constitutes your acceptance of the revised terms. We encourage you to review this page periodically.</p>
+        </article>
+
+        <!-- 2. Product Information -->
+        <article id="products" class="terms-section rv">
+          <p class="terms-section-number">Section 02</p>
+          <h2>Product Information</h2>
+          <p>We take great care to present every timepiece accurately. Product descriptions, specifications, and imagery on our website are prepared with attention to detail and verified against manufacturer documentation where available.</p>
+          <p>However, please note the following:</p>
+          <ul>
+            <li><strong>Colour accuracy</strong> — on-screen colours may differ from the physical product due to display settings, screen calibration, and lighting conditions during photography. Dial colours, strap tones, and case finishes should be considered approximations.</li>
+            <li><strong>Specifications</strong> — technical specifications including dimensions, water resistance ratings, and movement details are sourced from manufacturer data and are subject to revision by the manufacturer without prior notice.</li>
+            <li><strong>Availability</strong> — all products are subject to availability. We make every effort to maintain accurate stock levels, but given the nature of curated inventory, certain references may sell out between the time you place an order and the time we process it. In such cases, we will notify you promptly and issue a full refund.</li>
+          </ul>
+          <p>Product photographs may include styling accessories such as stands, cloths, or display boxes that are not included with the purchase unless explicitly stated in the product listing.</p>
+        </article>
+
+        <!-- 3. Pricing & Payment -->
+        <article id="pricing" class="terms-section rv">
+          <p class="terms-section-number">Section 03</p>
+          <h2>Pricing <span class="amp">&amp;</span> Payment</h2>
+          <p>All prices displayed on our website are listed in Bangladeshi Taka (৳) and include applicable taxes. Prices are valid at the time of order placement and are subject to change without prior notice. A price change will not affect orders that have already been confirmed.</p>
+
+          <h3>Accepted Payment Methods</h3>
+          <p>We currently offer the following payment options:</p>
+          <ul>
+            <li><strong>Cash on Delivery (COD)</strong> — pay in cash at the time of delivery. Available for orders within Bangladesh only. A verification call may be placed before dispatch for orders exceeding ৳50,000.</li>
+            <li><strong>bKash</strong> — send payment to our designated bKash merchant number. Order confirmation will be sent once payment is verified, typically within one business hour.</li>
+            <li><strong>Nagad</strong> — transfer to our Nagad merchant account. The same verification timeline applies as bKash.</li>
+            <li><strong>Bank Transfer</strong> — direct transfer to our designated bank account. Please include your order number as the payment reference. Orders will be processed after the transfer clears, which may take one to two business days.</li>
+          </ul>
+          <p>All prepaid orders are processed only after payment confirmation. We do not store payment credentials. For bKash and Nagad transactions, please retain your transaction ID as proof of payment.</p>
+        </article>
+
+        <!-- 4. Shipping & Delivery -->
+        <article id="shipping" class="terms-section rv">
+          <p class="terms-section-number">Section 04</p>
+          <h2>Shipping <span class="amp">&amp;</span> Delivery</h2>
+          <p>We ship all orders through our logistics partner, <strong>Steadfast Courier</strong>, ensuring reliable handling and real-time tracking for every package.</p>
+
+          <h3>Delivery Timelines</h3>
+          <ul>
+            <li><strong>Inside Dhaka</strong> — orders are typically delivered within 1–2 business days from dispatch.</li>
+            <li><strong>Outside Dhaka</strong> — delivery takes approximately 3–5 business days depending on the destination district.</li>
+          </ul>
+          <p>Business days are Saturday through Thursday. Orders placed after 3:00 PM or on Fridays will be processed on the next business day.</p>
+
+          <h3>Shipping Fees</h3>
+          <ul>
+            <li><strong>Inside Dhaka</strong> — complimentary shipping on all orders.</li>
+            <li><strong>Outside Dhaka</strong> — a flat shipping fee of ৳120 applies. For orders above ৳30,000, shipping is complimentary.</li>
+          </ul>
+          <p>Once your order is dispatched, you will receive a confirmation email or SMS containing your Steadfast tracking number. You can monitor your delivery status in real time through the Track My Order page on our website.</p>
+
+          <h3>Delivery Conditions</h3>
+          <p>All shipments are insured during transit. Packages are sealed with tamper-evident packaging. Upon receiving your order, we ask that you inspect the outer packaging before accepting delivery. If the parcel shows visible signs of damage, you may refuse delivery. Please contact us immediately so we can arrange a replacement dispatch.</p>
+        </article>
+
+        <!-- 5. Returns & Refunds -->
+        <article id="returns" class="terms-section rv">
+          <p class="terms-section-number">Section 05</p>
+          <h2>Returns <span class="amp">&amp;</span> Refunds</h2>
+          <p>We want you to be fully satisfied with your purchase. If for any reason your timepiece does not meet your expectations, we offer a structured return process within a defined inspection window.</p>
+
+          <h3>Inspection Window</h3>
+          <p>You have <strong>3 calendar days</strong> from the date of delivery to inspect your timepiece and initiate a return. The inspection window begins on the day you receive the product, as confirmed by Steadfast delivery records.</p>
+
+          <h3>Conditions for Return</h3>
+          <p>To be eligible for a return, the following conditions must be met:</p>
+          <ul>
+            <li>The watch must be unworn and in its original condition, with no scratches, marks, or signs of use.</li>
+            <li>All original packaging, tags, warranty cards, and accessories must be included and undamaged.</li>
+            <li>The protective films, if present at the time of delivery, must remain intact.</li>
+            <li>A valid order number and proof of purchase must be provided.</li>
+          </ul>
+          <p>Items that have been worn, resized, engraved, or damaged after delivery are not eligible for return. Returns initiated beyond the 3-day window will not be accepted.</p>
+
+          <h3>Refund Processing</h3>
+          <p>Once we receive and inspect the returned item, we will notify you of the approval or rejection of your refund within 2 business days. Approved refunds will be processed using the original payment method:</p>
+          <ul>
+            <li><strong>bKash / Nagad</strong> — refund issued within 3 business days.</li>
+            <li><strong>Bank Transfer</strong> — refund issued within 5–7 business days, depending on your bank.</li>
+            <li><strong>COD orders</strong> — refund transferred to your bKash, Nagad, or bank account of choice within 5 business days.</li>
+          </ul>
+          <p>Return shipping costs are the responsibility of the buyer, unless the return is due to a defect or an error on our part, in which case we will arrange and cover the return pickup.</p>
+        </article>
+
+        <!-- 6. Warranty Policy -->
+        <article id="warranty" class="terms-section rv">
+          <p class="terms-section-number">Section 06</p>
+          <h2>Warranty Policy</h2>
+          <p>Every timepiece purchased from Horologium comes with a <strong>2-year manufacturer warranty</strong> from the date of original purchase.</p>
+
+          <h3>What Is Covered</h3>
+          <p>The warranty covers defects in materials and workmanship under normal use. This includes:</p>
+          <ul>
+            <li>Movement malfunctions not caused by external damage or mishandling.</li>
+            <li>Crown, pusher, and winding mechanism defects.</li>
+            <li>Manufacturing defects in the dial, hands, or case construction.</li>
+            <li>Water resistance failure within the manufacturer's stated rating, provided the case back and crown were properly secured.</li>
+          </ul>
+
+          <h3>What Is Not Covered</h3>
+          <p>The following are excluded from warranty coverage:</p>
+          <ul>
+            <li>Normal wear and tear, including scratches on the crystal, case, or bracelet.</li>
+            <li>Damage resulting from impacts, drops, or exposure to extreme conditions outside the watch's stated tolerances.</li>
+            <li>Battery replacement for quartz movements.</li>
+            <li>Damage caused by unauthorised repairs, modifications, or servicing by third parties.</li>
+            <li>Straps, buckles, and other accessories unless specifically covered by the manufacturer.</li>
+          </ul>
+
+          <h3>What Voids the Warranty</h3>
+          <p>The warranty is voided if the watch has been opened, serviced, or modified by anyone other than an authorised service centre. Removal or alteration of the serial number or case back markings will also void the warranty. To make a warranty claim, please contact our support team with your order number and a description of the issue. We will guide you through the process.</p>
+        </article>
+
+        <!-- 7. Privacy & Data -->
+        <article id="privacy" class="terms-section rv">
+          <p class="terms-section-number">Section 07</p>
+          <h2>Privacy <span class="amp">&amp;</span> Data</h2>
+          <p>Horologium is committed to protecting your personal information. This section outlines what data we collect, how we use it, and how we safeguard it.</p>
+
+          <h3>Data We Collect</h3>
+          <p>When you place an order or interact with our website, we may collect the following:</p>
+          <ul>
+            <li>Name, email address, phone number, and shipping address provided during checkout.</li>
+            <li>Order history and transaction details for record-keeping and customer support.</li>
+            <li>Basic browsing data (pages visited, time on site) through standard analytics, used solely to improve our website experience.</li>
+          </ul>
+
+          <h3>How We Use Your Data</h3>
+          <p>Your information is used exclusively for the following purposes:</p>
+          <ul>
+            <li>Processing and fulfilling your orders.</li>
+            <li>Communicating order status, shipping updates, and delivery confirmations.</li>
+            <li>Responding to your enquiries and providing customer support.</li>
+            <li>Sending occasional updates about new arrivals or collections, only if you have opted in to our newsletter.</li>
+          </ul>
+
+          <h3>Data Protection</h3>
+          <p>We do not sell, trade, or share your personal data with third parties for marketing purposes. Data shared with our logistics partner (Steadfast) is limited strictly to the information necessary for order delivery. All data is stored securely and access is restricted to authorised personnel only.</p>
+          <p>You may request a copy of the personal data we hold, or ask us to delete your information, by contacting us directly. We will process such requests within 7 business days.</p>
+        </article>
+
+        <!-- 8. Contact -->
+        <article id="contact" class="terms-section rv">
+          <p class="terms-section-number">Section 08</p>
+          <h2>Contact</h2>
+          <p>If you have any questions about these terms, need clarification on any of our policies, or require assistance with a specific order, our support team is available to help.</p>
+          <ul>
+            <li><strong>Email</strong> — <a href="mailto:support@horologium.com">support@horologium.com</a></li>
+            <li><strong>WhatsApp</strong> — +880 1XXX-XXXXXX (Saturday–Thursday, 10:00 AM – 7:00 PM)</li>
+            <li><strong>Address</strong> — Horologium, Dhaka, Bangladesh</li>
+          </ul>
+          <p>We aim to respond to all enquiries within 24 hours during business days. For urgent matters related to orders in transit, please include your order number and Steadfast tracking ID in your message for the fastest resolution.</p>
+        </article>
+
+        <p class="terms-updated">Last updated — June 2026</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" id="footer" role="contentinfo">
+  <div class="footer-top">
+    <div class="footer-brand-col">
+      <div class="footer-logo" aria-hidden="true">HOROLOGIUM</div>
+      <p>Crafted for those who understand that true precision is measured not in seconds, but in the pursuit of excellence.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="shop.html">Collections</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Consult with Expert</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Client Care</h4>
+      <ul>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        
+        <li><a href="track-order.html">Track My Order</a></li>
+      </ul>
+      <div class="footer-newsletter">
+        <p id="newsletter-label">Receive updates from the atelier</p>
+        <div class="footer-email-row">
+          <input type="email" placeholder="Email address" aria-labelledby="newsletter-label" autocomplete="email">
+          <button type="button" aria-label="Subscribe to newsletter">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-est">Est. 2024 &middot; Dhaka</div>
+    <div class="footer-copy">&copy; 2024 Horologium. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- NOSCRIPT FALLBACK -->
+<noscript>
+  <style>
+    .rv { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
+
+<script>
+/* ═══════════════════════════════════════
+   NAVIGATION — Scroll Effect
+   ═══════════════════════════════════════ */
+(function () {
+  var header = document.querySelector('.site-header');
+  window.addEventListener('scroll', function () {
+    header.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════
+   MOBILE MENU — Open/Close/Focus Trap/Escape
+   ═══════════════════════════════════════ */
+(function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var menu = document.getElementById('mobile-menu');
+  var focusableEls = menu.querySelectorAll('a');
+  var firstFocusable = focusableEls[0];
+  var lastFocusable = focusableEls[focusableEls.length - 1];
+
+  function openMenu() {
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close menu');
+    menu.style.display = 'flex';
+    requestAnimationFrame(function () { menu.classList.add('visible'); });
+    document.body.style.overflow = 'hidden';
+    firstFocusable.focus();
+  }
+
+  function closeMenu() {
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+    menu.classList.remove('visible');
+    setTimeout(function () { menu.style.display = 'none'; }, 400);
+    document.body.style.overflow = '';
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', function () {
+    var isOpen = toggle.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  focusableEls.forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+
+  menu.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusable) {
+        e.preventDefault();
+        lastFocusable.focus();
+      }
+    } else {
+      if (document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
+      }
+    }
+  });
+})();
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════ */
+(function () {
+  var elements = document.querySelectorAll('.rv');
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReduced) {
+    elements.forEach(function (el) { el.classList.add('vis'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('vis');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
+  elements.forEach(function (el) { observer.observe(el); });
+})();
+
+/* ═══════════════════════════════════════
+   TOC — Active Section Tracking
+   ═══════════════════════════════════════ */
+(function () {
+  var tocLinks = document.querySelectorAll('.terms-toc-link');
+  var sections = [];
+
+  tocLinks.forEach(function (link) {
+    var id = link.getAttribute('href').replace('#', '');
+    var section = document.getElementById(id);
+    if (section) sections.push({ id: id, el: section, link: link });
+  });
+
+  if (!sections.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(function (l) { l.classList.remove('active'); });
+        var match = sections.find(function (s) { return s.el === entry.target; });
+        if (match) match.link.classList.add('active');
+      }
+    });
+  }, {
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function (s) { observer.observe(s.el); });
+
+  /* Smooth scroll with offset for fixed header */
+  tocLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var id = this.getAttribute('href').replace('#', '');
+      var target = document.getElementById(id);
+      if (!target) return;
+      var offset = 100;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
